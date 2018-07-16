@@ -1,31 +1,39 @@
 package com.nagarro.entity;
 
-import com.nagarro.enums.ItemType;
-
-public class ItemWithTax{
+public class ItemWithTax {
 
     private String name;
     private double price;
     private double salesTaxPerItem;
-    private double finalPrice;
+    private double finalPricePerItem;
+    private double totalPrice;
+
+
+    public ItemWithTax(String name, double price, double salesTaxPerItem, double finalPricePerItem, double totalPrice) {
+        this.name = name;
+        this.price = price;
+        this.salesTaxPerItem = salesTaxPerItem;
+        this.finalPricePerItem = finalPricePerItem;
+        this.totalPrice = totalPrice;
+    }
 
 
     public ItemWithTax(String name, double price, double salesTaxPerItem, double finalPrice) {
         this.name = name;
         this.price = price;
         this.salesTaxPerItem = salesTaxPerItem;
-        this.finalPrice = finalPrice;
+        this.finalPricePerItem = finalPrice;
     }
 
     @Override
     public String toString() {
-        return "Item Details With Tax{" +
-                "name = '" + name + '\'' +
-                ", price = " + price +
-                ", sales Tax Per Item = " + salesTaxPerItem +
-                ", final Price=" + finalPrice +
+        return "Item_Details_With_Tax{" +
+                "Name = '" + name + '\'' +
+                ", Item Price = " + price +
+                ", Sales Tax Per Item = " + salesTaxPerItem +
+                ", Final Price Per Item = " + finalPricePerItem +
+                ", Total Price = " + totalPrice +
                 '}';
-
     }
 
     public String getName() {
@@ -52,12 +60,20 @@ public class ItemWithTax{
         this.salesTaxPerItem = salesTaxPerItem;
     }
 
-    public double getFinalPrice() {
-        return finalPrice;
+    public double getFinalPricePerItem() {
+        return finalPricePerItem;
     }
 
-    public void setFinalPrice(double finalPrice) {
-        this.finalPrice = finalPrice;
+    public void setFinalPricePerItem(double finalPricePerItem) {
+        this.finalPricePerItem = finalPricePerItem;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
 }

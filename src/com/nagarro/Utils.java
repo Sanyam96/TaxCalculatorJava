@@ -6,7 +6,7 @@ public class Utils {
 
     private static Scanner scn = new Scanner(System.in);
 
-    public static Scanner getScannerInstance(){
+    public static Scanner getScannerInstance() {
         return scn;
     }
 

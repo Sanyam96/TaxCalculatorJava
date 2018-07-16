@@ -11,10 +11,10 @@ public class Item {
     @Override
     public String toString() {
         return "Item{" +
-                "name='" + name + '\'' +
-                ", price=" + price +
-                ", quantity=" + quantity +
-                ", type=" + type +
+                "Name = '" + name + '\'' +
+                ", Price = " + price +
+                ", Quantity = " + quantity +
+                ", Item Type = " + type +
                 '}';
     }
 
