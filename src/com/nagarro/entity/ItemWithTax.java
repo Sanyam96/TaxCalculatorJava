@@ -1,5 +1,8 @@
 package com.nagarro.entity;
 
+/**
+ * Class to store Return output with Item Computation and with Tax Calculation
+ */
 public class ItemWithTax {
 
     private String name;
@@ -8,7 +11,14 @@ public class ItemWithTax {
     private double finalPricePerItem;
     private double totalPrice;
 
-
+    /**
+     * Constructor
+     * @param name
+     * @param price
+     * @param salesTaxPerItem
+     * @param finalPricePerItem
+     * @param totalPrice
+     */
     public ItemWithTax(String name, double price, double salesTaxPerItem, double finalPricePerItem, double totalPrice) {
         this.name = name;
         this.price = price;
@@ -17,14 +27,10 @@ public class ItemWithTax {
         this.totalPrice = totalPrice;
     }
 
-
-    public ItemWithTax(String name, double price, double salesTaxPerItem, double finalPrice) {
-        this.name = name;
-        this.price = price;
-        this.salesTaxPerItem = salesTaxPerItem;
-        this.finalPricePerItem = finalPrice;
-    }
-
+    /**
+     * to wrap Item with tax into String
+     * @return Item with Tax String
+     */
     @Override
     public String toString() {
         return "Item_Details_With_Tax{" +

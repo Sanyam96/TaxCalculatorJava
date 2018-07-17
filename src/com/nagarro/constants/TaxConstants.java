@@ -1,5 +1,8 @@
 package com.nagarro.constants;
 
+/**
+ * Class to define all constants
+ */
 public class TaxConstants {
 
     public static final double RAW_PERCENTAGE_TAX = 12.5;
