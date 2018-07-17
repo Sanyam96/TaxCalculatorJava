@@ -82,12 +82,13 @@ public class TaxComputation {
     /**
      * Main business logic to calculate tax according to Item Type
      * Item with Tax object preparation
+     *
      * @param item
      * @return Item with Tax
      */
     private ItemWithTax computeTax(Item item) {
         ItemType itemType = item.getType();
-        double itemPrice =item.getPrice();
+        double itemPrice = item.getPrice();
         double salesTaxOnItem;
         if (itemType == ItemType.RAW) {
             RawTax rawTax = new RawTax();

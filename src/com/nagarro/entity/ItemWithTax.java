@@ -13,6 +13,7 @@ public class ItemWithTax {
 
     /**
      * Constructor
+     *
      * @param name
      * @param price
      * @param salesTaxPerItem
@@ -29,6 +30,7 @@ public class ItemWithTax {
 
     /**
      * to wrap Item with tax into String
+     *
      * @return Item with Tax String
      */
     @Override
