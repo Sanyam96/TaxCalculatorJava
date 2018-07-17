@@ -90,15 +90,22 @@ public class TaxComputation {
         ItemType itemType = item.getType();
         double itemPrice = item.getPrice();
         double salesTaxOnItem;
-        if (itemType == ItemType.RAW) {
-            RawTax rawTax = new RawTax();
-            salesTaxOnItem = rawTax.taxOnPerItem(itemPrice, itemType);
-        } else if (itemType == ItemType.MANUFACTURED) {
-            ManufacturedTax manufacturedTax = new ManufacturedTax();
-            salesTaxOnItem = manufacturedTax.taxOnPerItem(itemPrice, itemType);
-        } else {
-            ImportedTax importedTax = new ImportedTax();
-            salesTaxOnItem = importedTax.taxOnPerItem(itemPrice, itemType);
+
+        switch (itemType) {
+            case RAW:
+                RawTax rawTax = new RawTax();
+                salesTaxOnItem = rawTax.taxOnPerItem(itemPrice, itemType);
+                break;
+            case MANUFACTURED:
+                ManufacturedTax manufacturedTax = new ManufacturedTax();
+                salesTaxOnItem = manufacturedTax.taxOnPerItem(itemPrice, itemType);
+                break;
+            case IMPORTED:
+                ImportedTax importedTax = new ImportedTax();
+                salesTaxOnItem = importedTax.taxOnPerItem(itemPrice, itemType);
+                break;
+            default:
+                salesTaxOnItem = 0;
         }
 
         ItemWithTax itemWithTax = new ItemWithTax(item.getName(), item.getPrice(), salesTaxOnItem, item.getPrice() + salesTaxOnItem, (item.getPrice() + salesTaxOnItem) * item.getQuantity());
