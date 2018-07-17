@@ -8,7 +8,6 @@ import com.nagarro.enums.ItemType;
 public interface TaxOnItem {
 
     /**
-     *
      * @param itemPrice
      * @param itemType
      * @return

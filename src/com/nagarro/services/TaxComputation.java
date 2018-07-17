@@ -1,7 +1,6 @@
 package com.nagarro.services;
 
 import com.nagarro.Utils;
-import com.nagarro.constants.TaxConstants;
 import com.nagarro.entity.Item;
 import com.nagarro.entity.ItemWithTax;
 import com.nagarro.enums.ItemType;
@@ -9,10 +8,11 @@ import com.nagarro.enums.ItemType;
 /**
  * Class for tax computation
  */
-public class TaxComputation implements TaxOnItem {
+public class TaxComputation {
 
     /**
      * function to prepare Item
+     *
      * @return Item Object
      * after taking input operations
      */
@@ -44,8 +44,7 @@ public class TaxComputation implements TaxOnItem {
                         itemType = ItemType.IMPORTED;
                         break;
                     default:
-                        System.out.println("Wrong input entered!");
-                        System.out.println("Please try (1/2/3)");
+                        System.out.println("Wrong input entered! \n " + "Please try (1/2/3)");
                         continue;
                 }
                 itemTypeLoopFlag = false;
@@ -72,6 +71,7 @@ public class TaxComputation implements TaxOnItem {
 
     /**
      * transform Item to Item with Tax
+     *
      * @return computed item with tax
      */
     public ItemWithTax prepareItemAndComputeTax() {
@@ -80,39 +80,28 @@ public class TaxComputation implements TaxOnItem {
     }
 
     /**
+     * Main business logic to calculate tax according to Item Type
      * Item with Tax object preparation
      * @param item
      * @return Item with Tax
      */
     private ItemWithTax computeTax(Item item) {
-        double salesTaxOnItem = taxOnPerItem(item.getPrice(), item.getType());
+        ItemType itemType = item.getType();
+        double itemPrice =item.getPrice();
+        double salesTaxOnItem;
+        if (itemType == ItemType.RAW) {
+            RawTax rawTax = new RawTax();
+            salesTaxOnItem = rawTax.taxOnPerItem(itemPrice, itemType);
+        } else if (itemType == ItemType.MANUFACTURED) {
+            ManufacturedTax manufacturedTax = new ManufacturedTax();
+            salesTaxOnItem = manufacturedTax.taxOnPerItem(itemPrice, itemType);
+        } else {
+            ImportedTax importedTax = new ImportedTax();
+            salesTaxOnItem = importedTax.taxOnPerItem(itemPrice, itemType);
+        }
+
         ItemWithTax itemWithTax = new ItemWithTax(item.getName(), item.getPrice(), salesTaxOnItem, item.getPrice() + salesTaxOnItem, (item.getPrice() + salesTaxOnItem) * item.getQuantity());
         return itemWithTax;
-    }
-
-    /**
-     * Main business logic to calculate tax according to Item Type
-     * @param itemPrice
-     * @param itemType
-     * @return tax on per item
-     */
-    @Override
-    public double taxOnPerItem(double itemPrice, ItemType itemType) {
-
-        if (itemType == ItemType.RAW) {
-            return (itemPrice * TaxConstants.RAW_PERCENTAGE_TAX / 100);
-        } else if (itemType == ItemType.MANUFACTURED) {
-            return ((itemPrice * TaxConstants.MANUFACTURED_PERCENTAGE_TAX_12_5 / 100) + ((TaxConstants.MANUFACTURED_PERCENTAGE_TAX_VALUE_2 / 100) * (itemPrice + (TaxConstants.MANUFACTURED_PERCENTAGE_TAX_12_5 / 100) * itemPrice)));
-        } else {
-            double priceWithImportedTax = (TaxConstants.IMPORT_DUTY_PERCENAGE_TAX / 100) * itemPrice + itemPrice;
-            if (priceWithImportedTax <= 100) {
-                return TaxConstants.SURCHARGE_LESS_100_VALUE + priceWithImportedTax - itemPrice;
-            } else if (priceWithImportedTax > 100 && priceWithImportedTax <= 200) {
-                return TaxConstants.SURCHARGE_BETWEEN_100_200_VALUE + priceWithImportedTax - itemPrice;
-            } else {
-                return (((TaxConstants.SURCHARGE_MORE_200_PERCENTAGE_TAX / 100) * priceWithImportedTax + priceWithImportedTax) - itemPrice);
-            }
-        }
     }
 
 }
